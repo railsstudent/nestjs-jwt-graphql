@@ -12,6 +12,6 @@
     "**/*.d.ts"
   ],
   "ignoreUnimported": [],
-  "ignoreUnused": [],
+  "ignoreUnused": ["passport-jwt"],
   "ignoreUnresolved": []
 }
