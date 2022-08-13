@@ -1,5 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-    
-npx --no-install lint-staged    
+
+npx --no-install unimported
+npx --no-install lint-staged  
   
