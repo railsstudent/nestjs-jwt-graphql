@@ -12,6 +12,6 @@
     "**/*.d.ts"
   ],
   "ignoreUnimported": [],
-  "ignoreUnused": ["passport-jwt"],
+  "ignoreUnused": ["@nestjs/apollo"],
   "ignoreUnresolved": []
 }

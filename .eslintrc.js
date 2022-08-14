@@ -1,13 +1,15 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig.json',
+    project: './tsconfig.eslint.json',
     tsconfigRootDir : __dirname, 
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'sonarjs'],
   extends: [
+    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     'plugin:prettier/recommended',
     'plugin:rxjs/recommended',
     'plugin:sonarjs/recommended'
@@ -21,7 +23,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
         'prettier/prettier': ['error', {
         'singleQuote': true, 
