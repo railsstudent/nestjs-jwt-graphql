@@ -1,6 +1,6 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["nestjs", "commitlint", "dtos", "sonarjs"],
+  "words": ["nestjs", "commitlint", "dtos", "sonarjs", "yopmail"],
   "flagWords": ["hte"]
 }

@@ -1,12 +1,21 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 import Joi from 'joi';
+import path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth';
+import { UserModule } from './user';
 
 @Module({
   imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      include: [UserModule],
+      autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
+    }),
     AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -19,6 +28,7 @@ import { AuthModule } from './auth';
         JWT_REFRESH_TOKEN_EXPIRATION: Joi.string().required(),
       }),
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

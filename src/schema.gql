@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  """user id"""
+  id: String!
+
+  """email"""
+  email: String!
+
+  """first name"""
+  firstName: String!
+
+  """last name"""
+  lastName: String!
+}
+
+type Query {
+  users: [User!]!
+  user(id: String!): User
+}
