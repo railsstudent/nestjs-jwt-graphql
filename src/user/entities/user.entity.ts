@@ -1,5 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
-import { Exclude } from 'class-transformer';
+import { ObjectType, Field, Directive } from '@nestjs/graphql';
 
 @ObjectType()
 export class User {
@@ -15,7 +14,7 @@ export class User {
   @Field(() => String, { description: 'last name' })
   lastName: string;
 
+  @Directive('@skip(if: true)')
   @Field(() => String, { description: 'password' })
-  @Exclude()
   password: string;
 }
