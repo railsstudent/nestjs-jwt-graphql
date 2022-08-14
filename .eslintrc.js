@@ -37,6 +37,7 @@ module.exports = {
         'quoteProps': 'as-needed',
         'requirePragma': false,
         'insertPragma': false, 
-    }]
+    }],
+    "@typescript-eslint/no-unsafe-assignment": "off"
   },
 };

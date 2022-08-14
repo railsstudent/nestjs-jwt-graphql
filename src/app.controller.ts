@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Authenticated, CurrentUser, GqlAuthenticated } from './auth';
+import { Authenticated, CurrentUser } from '@/auth';
+import { ValidatedUser } from '@/user';
 
 @Controller()
 export class AppController {
@@ -11,16 +12,15 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('jwt-hello')
+  @Get('jwt-user')
   @Authenticated()
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  getJwtHello(@CurrentUser() user: any): any {
+  getJwtUser(@CurrentUser() user: ValidatedUser): ValidatedUser {
     return user;
   }
 
-  @Get('gql-hello')
-  @GqlAuthenticated()
-  getGqlHello(): string {
-    return this.appService.getHello();
+  @Get('jwt-email')
+  @Authenticated()
+  getJwtEmail(@CurrentUser('email') email: string): string {
+    return email;
   }
 }

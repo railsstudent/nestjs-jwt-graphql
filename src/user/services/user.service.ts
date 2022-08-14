@@ -12,6 +12,7 @@ export class UserService {
         email: `user-${i + 1}@yopmail.com`,
         firstName: `first name ${i + 1}`,
         lastName: `last name ${i + 1}`,
+        password: `password${i + 1}`,
       });
     }
   }
@@ -22,5 +23,10 @@ export class UserService {
 
   findOne(id: string): User | undefined {
     return this.users.find((user) => user.id === id);
+  }
+
+  login(input: { email: string; password: string }): User | undefined {
+    const { email, password } = input;
+    return this.users.find((user) => user.email === email && user.password === password);
   }
 }
