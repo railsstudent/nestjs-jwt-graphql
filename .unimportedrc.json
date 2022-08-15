@@ -12,6 +12,6 @@
     "**/*.d.ts"
   ],
   "ignoreUnimported": [],
-  "ignoreUnused": ["@nestjs/typeorm"],
+  "ignoreUnused": [],
   "ignoreUnresolved": []
 }

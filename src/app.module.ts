@@ -1,13 +1,15 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import Joi from 'joi';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import path from 'path';
+import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth';
 import { UserModule } from './user';
+import { validationSchema } from './envSchema';
 
 @Module({
   imports: [
@@ -19,14 +21,22 @@ import { UserModule } from './user';
     AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      validationSchema: Joi.object({
-        NODE_ENV: Joi.string().valid('development', 'production', 'test', 'provision').default('development'),
-        PORT: Joi.number().default(3000),
-        JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
-        JWT_ACCESS_TOKEN_EXPIRATION: Joi.string().required(),
-        JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
-        JWT_REFRESH_TOKEN_EXPIRATION: Joi.string().required(),
-      }),
+      validationSchema,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =>
+        ({
+          type: configService.get<string>('DATABASE_CONNECT'),
+          host: configService.get<string>('DATABASE_HOST'),
+          port: configService.get<number>('DATABASE_PORT'),
+          username: configService.get<string>('DATABASE_USER'),
+          password: configService.get<string>('DATABASE_PASSWORD'),
+          database: configService.get<string>('DATABASE_NAME'),
+          autoLoadEntities: true,
+        } as TypeOrmModule),
+      dataSourceFactory: async (options) => new DataSource(options).initialize(),
     }),
     UserModule,
   ],
