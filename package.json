@@ -32,6 +32,7 @@
     "@nestjs/jwt": "9.0.0",
     "@nestjs/passport": "9.0.0",
     "@nestjs/platform-express": "9.0.9",
+    "@nestjs/typeorm": "9.0.1",
     "apollo-server-express": "3.10.1",
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
@@ -39,8 +40,10 @@
     "joi": "17.6.0",
     "passport": "0.6.0",
     "passport-jwt": "4.0.0",
+    "pg": "8.7.3",
     "reflect-metadata": "0.1.13",
-    "rxjs": "7.5.6"
+    "rxjs": "7.5.6",
+    "typeorm": "0.3.7"
   },
   "devDependencies": {
     "@commitlint/cli": "~17.0.2",
