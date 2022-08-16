@@ -1,35 +1,24 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Secure GraphQL API by JWT Authentication
 
 ## Installation
 
 ```bash
 $ npm install
+```
+
+## Add .env
+
+Copy .env.example to .env.
+Update the values of environment variables. In the example,
+the expiration time of access token is 1 hour and the expiration time of refresh token is 1 day.
+
+```bash
+JWT_ACCESS_TOKEN_SECRET='myJwtSecretKey'
+JWT_ACCESS_TOKEN_EXPIRATION='1h'
+JWT_REFRESH_TOKEN_SECRET='myJwtRefreshKey'
+JWT_REFRESH_TOKEN_EXPIRATION='1d'
 ```
 
 ## Running the app
@@ -58,16 +47,55 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Test JWT Authentication
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
 
-## Stay in touch
+curl --location --request POST 'http://localhost:3000/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "user-1@yopmail.com",
+    "password": "password1"
+}'
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
 
-## License
+and the response in
 
-Nest is [MIT licensed](LICENSE).
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItMSIsImVtYWlsIjoidXNlci0xQHlvcG1haWwuY29tIiwiaWF0IjoxNjYwNjYzODU2LCJleHAiOjE2NjA2Njc0NTZ9.uGUTA4grbcd5ICMyurO6dE5KZAeXMNI-kggT7vSZ2v4",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItMSIsImVtYWlsIjoidXNlci0xQHlvcG1haWwuY29tIiwiaWF0IjoxNjYwNjYzODU2LCJleHAiOjE2NjA3NTAyNTZ9.3y8wGgIdRBPaCafcpqP4qG7Ly1e4AP3xXuyaAex5gkA"
+}
+```
+
+Open GraphQL playground and call User query that requires authentication
+
+Navigate to http://localhost:3000/graphql/playground
+Add authorization to HTTP header
+
+```
+Query {
+  whoAmI {
+    email
+    firstName
+    lastName
+  }
+}
+
+```
+
+produces the result
+
+```
+{
+  "data": {
+    "whoAmI": {
+      "email": "user-1@yopmail.com",
+      "firstName": "first name 1",
+      "lastName": "last name 1"
+    }
+  }
+}
+
+```
