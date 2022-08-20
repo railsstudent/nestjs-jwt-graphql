@@ -6,30 +6,49 @@ services:
     image: postgres:14.5
     restart: always
     ports:
-      - '5432:5432'
+      - '${DATABASE_PORT}:${DATABASE_PORT}'
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=userDB
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
       - PGDATA=/var/lib/postgresql/data
     volumes: 
       - db:/var/lib/postgresql/data
     networks:
-      - jwt-gql-network
+      - postgres
 
   adminer:
     container_name: adminer
     image: adminer:latest
     restart: always
     ports:
-      - '8080:8080'
+      - "8080:8080"
     networks:
-      - jwt-gql-network
+      - postgres
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./dev.Dockerfile
+      target: development
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env
+    environment:
+      - DATABASE_HOST=postgres
+    ports:
+      - "${PORT}:${PORT}"
+    networks:
+      - postgres
+    command: npm run start:dev
 
 volumes:
   db:
 
 networks:
-  jwt-gql-network:
-    name: jwt-gql-network
-
+  postgres:
+    driver: bridge

@@ -9,7 +9,9 @@
     "**/*.spec.{js,jsx,ts,tsx}",
     "**/tests/**",
     "**/__tests__/**",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "**/migrations/**",
+    "**/configs/**"
   ],
   "ignoreUnimported": [],
   "ignoreUnused": [],

@@ -1,20 +1,25 @@
-import { ObjectType, Field, Directive } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Column, Entity } from 'typeorm';
+import { AbstractEntity } from '@/entities';
+import { Exclude } from 'class-transformer';
 
+@Entity()
 @ObjectType()
-export class User {
-  @Field(() => String, { description: 'user id' })
-  id: string;
-
+export class UserEntity extends AbstractEntity {
+  @Column('varchar', { nullable: false })
   @Field(() => String, { description: 'email' })
   email: string;
 
+  @Column('varchar', { nullable: false, default: '' })
   @Field(() => String, { description: 'first name' })
   firstName: string;
 
+  @Column('varchar', { nullable: false, default: '' })
   @Field(() => String, { description: 'last name' })
   lastName: string;
 
-  @Directive('@skip(if: true)')
+  @Column('text', { nullable: false })
+  @Exclude()
   @Field(() => String, { description: 'password' })
   password: string;
 }

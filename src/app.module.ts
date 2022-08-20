@@ -17,6 +17,9 @@ import { validationSchema } from './envSchema';
       driver: ApolloDriver,
       include: [UserModule],
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
+      buildSchemaOptions: {
+        dateScalarMode: 'timestamp',
+      },
     }),
     AuthModule,
     ConfigModule.forRoot({
@@ -35,6 +38,7 @@ import { validationSchema } from './envSchema';
           password: configService.get<string>('DATABASE_PASSWORD'),
           database: configService.get<string>('DATABASE_NAME'),
           autoLoadEntities: true,
+          synchronize: false,
         } as TypeOrmModule),
       dataSourceFactory: async (options) => new DataSource(options).initialize(),
     }),

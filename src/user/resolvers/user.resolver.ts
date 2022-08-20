@@ -1,25 +1,25 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
 import { UserService } from '../services/user.service';
-import { User } from '../entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 import { GqlAuthenticated, GqlCurrentUser } from '../decorators';
 
 @GqlAuthenticated()
-@Resolver(() => User)
+@Resolver(() => UserEntity)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Query(() => [User], { name: 'users' })
-  findAll(): User[] {
+  @Query(() => [UserEntity], { name: 'users' })
+  findAll(): UserEntity[] {
     return this.userService.findAll();
   }
 
-  @Query(() => User, { name: 'user', nullable: true })
-  findOne(@Args('id', { type: () => String }) id: string): User | undefined {
+  @Query(() => UserEntity, { name: 'user', nullable: true })
+  findOne(@Args('id', { type: () => String }) id: string): UserEntity | undefined {
     return this.userService.findOne(id);
   }
 
-  @Query(() => User, { name: 'whoAmI', nullable: true })
-  whoAmI(@GqlCurrentUser() user: User): User {
+  @Query(() => UserEntity, { name: 'whoAmI', nullable: true })
+  whoAmI(@GqlCurrentUser() user: UserEntity): UserEntity {
     return this.userService.findOne(user.id);
   }
 }
