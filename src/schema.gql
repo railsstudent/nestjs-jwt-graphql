@@ -7,13 +7,13 @@ type UserEntity {
   id: String!
 
   """Created at date"""
-  createdAt: Timestamp!
+  createdAt: DateTime!
 
   """Updated at date"""
-  updatedAt: Timestamp!
+  updatedAt: DateTime!
 
   """ Deleted at date"""
-  deletedAt: Timestamp
+  deletedAt: DateTime
 
   """email"""
   email: String!
@@ -29,9 +29,9 @@ type UserEntity {
 }
 
 """
-`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
-scalar Timestamp
+scalar DateTime
 
 type Query {
   users: [UserEntity!]!

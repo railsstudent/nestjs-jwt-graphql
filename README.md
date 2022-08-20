@@ -99,14 +99,31 @@ Navigate to http://localhost:3000/graphql/playground
 Add authorization to HTTP header
 
 ```
-Query {
-  whoAmI {
-    email
-    firstName
-    lastName
+query userQuer($id: String!) {
+    whoAmI {
+      id
+      email
+      firstName
+      lastName
+    }
+    users {
+      id
+      email
+      firstName
+      lastName
+    }
+    user(id : $id) {
+      id
+      email
+      firstName
+      lastName
+    }
   }
-}
 
+  Query Variable:
+  {
+    "id": "982f0441-b49c-4885-ae8e-4c9b97c0b345"
+  }
 ```
 
 produces the result
@@ -118,6 +135,15 @@ produces the result
       "email": "user-1@yopmail.com",
       "firstName": "first name 1",
       "lastName": "last name 1"
+    }
+    "users": [
+      ...
+    ],
+    "user": {
+      "id": "982f0441-b49c-4885-ae8e-4c9b97c0b345",
+      "email": "Ernie25@hotmail.com",
+      "firstName": "Kody",
+      "lastName": "Grimes"
     }
   }
 }

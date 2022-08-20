@@ -19,9 +19,6 @@ import { validationSchema } from './envSchema';
       driver: ApolloDriver,
       include: [UserModule],
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
-      buildSchemaOptions: {
-        dateScalarMode: 'timestamp',
-      },
     }),
     AuthModule,
     ConfigModule.forRoot({

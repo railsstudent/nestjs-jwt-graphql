@@ -11,12 +11,10 @@ export class CreateSeedData1661002817068 implements MigrationInterface {
       const lastName = faker.name.lastName();
       const password = faker.internet.password();
       promises.push(
-        queryRunner.query(`INSERT INTO "user"("email", "firstName", "lastName", "password") values($1, $2, $3, $4)`, [
-          email,
-          firstName,
-          lastName,
-          password,
-        ]),
+        queryRunner.query(
+          `INSERT INTO "user"("id", "email", "firstName", "lastName", "password") values(uuid_generate_v4(), $1, $2, $3, $4)`,
+          [email, firstName, lastName, password],
+        ),
       );
     }
 
@@ -26,7 +24,7 @@ export class CreateSeedData1661002817068 implements MigrationInterface {
       const lastName = faker.name.lastName();
       authorPromises.push(
         queryRunner.query(
-          `INSERT INTO "author"("firstName", "lastName") values($1, $2) RETURNING id;
+          `INSERT INTO "author"("id", "firstName", "lastName") values(uuid_generate_v4(), $1, $2) RETURNING id;
         `,
           [firstName, lastName],
         ),
@@ -39,11 +37,10 @@ export class CreateSeedData1661002817068 implements MigrationInterface {
       const isbn = faker.random.alphaNumeric(12);
       const publicationYear = Math.min(faker.datatype.datetime().getFullYear(), new Date().getFullYear());
       bookPromises.push(
-        queryRunner.query(`INSERT INTO "book"("title", "isbn", "publicationYear") values($1, $2, $3) RETURNING id;`, [
-          title,
-          isbn,
-          publicationYear,
-        ]),
+        queryRunner.query(
+          `INSERT INTO "book"("id", "title", "isbn", "publicationYear") values(uuid_generate_v4(), $1, $2, $3) RETURNING id;`,
+          [title, isbn, publicationYear],
+        ),
       );
     }
 
