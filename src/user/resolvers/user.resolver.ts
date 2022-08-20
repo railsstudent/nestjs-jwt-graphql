@@ -9,17 +9,17 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Query(() => [UserEntity], { name: 'users' })
-  findAll(): UserEntity[] {
+  findAll(): Promise<UserEntity[]> {
     return this.userService.findAll();
   }
 
   @Query(() => UserEntity, { name: 'user', nullable: true })
-  findOne(@Args('id', { type: () => String }) id: string): UserEntity | undefined {
+  findOne(@Args('id', { type: () => String }) id: string): Promise<UserEntity | null> {
     return this.userService.findOne(id);
   }
 
   @Query(() => UserEntity, { name: 'whoAmI', nullable: true })
-  whoAmI(@GqlCurrentUser() user: UserEntity): UserEntity {
+  whoAmI(@GqlCurrentUser() user: UserEntity): Promise<UserEntity | null> {
     return this.userService.findOne(user.id);
   }
 }

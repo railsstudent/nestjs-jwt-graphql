@@ -3,6 +3,18 @@
 # ------------------------------------------------------
 
 type UserEntity {
+  """unique id"""
+  id: String!
+
+  """Created at date"""
+  createdAt: Timestamp!
+
+  """Updated at date"""
+  updatedAt: Timestamp!
+
+  """ Deleted at date"""
+  deletedAt: Timestamp
+
   """email"""
   email: String!
 
@@ -15,6 +27,11 @@ type UserEntity {
   """password"""
   password: String!
 }
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
 
 type Query {
   users: [UserEntity!]!

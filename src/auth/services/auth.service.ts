@@ -8,10 +8,10 @@ import { LoginDto } from '../dtos';
 export class AuthService {
   constructor(private configService: ConfigService, private jwtService: JwtService, private userService: UserService) {}
 
-  login(loginDto: LoginDto): { token: string; refreshToken: string } {
-    const user = this.userService.login(loginDto);
+  async login(loginDto: LoginDto): Promise<{ token: string; refreshToken: string }> {
+    const user = await this.userService.login(loginDto);
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid login');
     }
     const payload = { id: user.id, email: user.email };
     const token = this.jwtService.sign(payload);
