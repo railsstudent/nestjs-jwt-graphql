@@ -4,14 +4,14 @@ import { AbstractEntity } from '../../entities';
 import { BookEntity } from '../../book';
 
 @Entity('author')
-@ObjectType()
+@ObjectType({ description: 'Author Model' })
 export class AuthorEntity extends AbstractEntity {
   @Column('varchar', { nullable: false, default: '' })
-  @Field(() => String, { description: 'first name' })
+  @Field(() => String, { description: 'first name of author' })
   firstName: string;
 
   @Column('varchar', { nullable: false, default: '' })
-  @Field(() => String, { description: 'last name' })
+  @Field(() => String, { description: 'last name of author' })
   lastName: string;
 
   @ManyToMany(() => BookEntity)

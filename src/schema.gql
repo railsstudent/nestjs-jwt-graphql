@@ -2,6 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""User Model"""
 type UserEntity {
   """unique id"""
   id: String!
@@ -15,16 +16,16 @@ type UserEntity {
   """ Deleted at date"""
   deletedAt: DateTime
 
-  """email"""
+  """email of user"""
   email: String!
 
-  """first name"""
+  """first name of user"""
   firstName: String!
 
-  """last name"""
+  """last name of user"""
   lastName: String!
 
-  """password"""
+  """password of user"""
   password: String!
 }
 
