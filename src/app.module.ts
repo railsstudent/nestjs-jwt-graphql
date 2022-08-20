@@ -12,12 +12,13 @@ import { AuthorModule } from './author';
 import { BookModule } from './book';
 import { UserModule } from './user';
 import { validationSchema } from './envSchema';
+import { GqlAuthModule } from './gql-auth';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      include: [UserModule],
+      include: [UserModule, AuthorModule],
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
     }),
     AuthModule,
@@ -44,6 +45,7 @@ import { validationSchema } from './envSchema';
     UserModule,
     BookModule,
     AuthorModule,
+    GqlAuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
