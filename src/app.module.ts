@@ -8,6 +8,8 @@ import { DataSource } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth';
+import { AuthorModule } from './author';
+import { BookModule } from './book';
 import { UserModule } from './user';
 import { validationSchema } from './envSchema';
 
@@ -43,6 +45,8 @@ import { validationSchema } from './envSchema';
       dataSourceFactory: async (options) => new DataSource(options).initialize(),
     }),
     UserModule,
+    BookModule,
+    AuthorModule,
   ],
   controllers: [AppController],
   providers: [AppService],

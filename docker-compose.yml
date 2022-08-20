@@ -44,7 +44,7 @@ services:
       - "${PORT}:${PORT}"
     networks:
       - postgres
-    command: npm run start:dev
+    command: npm run start:migrate:dev
 
 volumes:
   db:

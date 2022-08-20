@@ -21,6 +21,30 @@ JWT_REFRESH_TOKEN_SECRET='myJwtRefreshKey'
 JWT_REFRESH_TOKEN_EXPIRATION='1d'
 ```
 
+## Running the app in docker in watch mode
+
+```bash
+# watch mode
+$ docker-compose up -d
+```
+
+TODO: Running the app in docker in production mode
+
+## Stop all docker containers
+
+```
+$ docker-compose down
+```
+
+## Generate migration script in docker container
+
+```
+$ docker exec -it backend /bin/sh
+$ /usr/src/app #  npm run typeorm:generate --name=CreateUser
+```
+
+Migration script will be created in src/migrations directory
+
 ## Running the app
 
 ```bash

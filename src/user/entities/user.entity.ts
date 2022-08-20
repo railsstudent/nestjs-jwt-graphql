@@ -1,9 +1,9 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity } from 'typeorm';
-import { AbstractEntity } from '@/entities';
 import { Exclude } from 'class-transformer';
+import { AbstractEntity } from '../../entities';
 
-@Entity()
+@Entity('user')
 @ObjectType()
 export class UserEntity extends AbstractEntity {
   @Column('varchar', { nullable: false })

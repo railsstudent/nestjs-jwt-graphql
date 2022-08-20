@@ -18,6 +18,4 @@ const source = new DataSource({
   synchronize: false,
 });
 
-console.log('source', source);
-
 export default source;

@@ -38,6 +38,8 @@ module.exports = {
         'requirePragma': false,
         'insertPragma': false, 
     }],
-    "@typescript-eslint/no-unsafe-assignment": "off"
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "no-console": "error",
+    "no-await-in-loop": "error"
   },
 };

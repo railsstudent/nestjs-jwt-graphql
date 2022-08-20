@@ -1,9 +1,8 @@
 import { Field } from '@nestjs/graphql';
-import { CreateDateColumn, DeleteDateColumn, Entity, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 const type = 'timestamp with time zone';
 
-@Entity()
 export abstract class AbstractEntity {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String, { nullable: false, description: 'unique id' })
