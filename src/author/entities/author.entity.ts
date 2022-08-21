@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { AbstractEntity } from '../../entities';
-import { BookEntity } from '../../book';
+import { BookEntity } from '../../book/entities/book.entity';
 
 @Entity('author')
 @ObjectType({ description: 'Author Model' })
@@ -16,5 +16,6 @@ export class AuthorEntity extends AbstractEntity {
 
   @ManyToMany(() => BookEntity)
   @JoinTable()
+  @Field(() => [BookEntity], { description: 'Books written by author', nullable: true })
   books?: BookEntity[];
 }

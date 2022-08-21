@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { UserService } from './services';
 import { UserResolver } from './resolvers';
 import { UserEntity } from './entities';
-import { GqlAuthModule } from '@/gql-auth';
+import { GqlAuthModule } from '../gql-auth';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity]), GqlAuthModule],

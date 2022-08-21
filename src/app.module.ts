@@ -21,7 +21,6 @@ import { GqlAuthModule } from './gql-auth';
       include: [UserModule, AuthorModule],
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
     }),
-    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema,
@@ -43,6 +42,7 @@ import { GqlAuthModule } from './gql-auth';
       dataSourceFactory: async (options) => new DataSource(options).initialize(),
     }),
     UserModule,
+    AuthModule,
     BookModule,
     AuthorModule,
     GqlAuthModule,

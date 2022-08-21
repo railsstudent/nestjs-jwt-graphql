@@ -34,7 +34,66 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+"""Book Model"""
+type BookEntity {
+  """unique id"""
+  id: String!
+
+  """Created at date"""
+  createdAt: DateTime!
+
+  """Updated at date"""
+  updatedAt: DateTime!
+
+  """ Deleted at date"""
+  deletedAt: DateTime
+
+  """Title of book"""
+  title: String!
+
+  """ISBN of book"""
+  isbn: String!
+
+  """Publication year of book"""
+  publicationYear: Int!
+
+  """Total number of pages"""
+  totalPages: Int!
+
+  """Genre of literature"""
+  genre: String!
+
+  """All authors of the book"""
+  authors: [AuthorEntity!]!
+}
+
+"""Author Model"""
+type AuthorEntity {
+  """unique id"""
+  id: String!
+
+  """Created at date"""
+  createdAt: DateTime!
+
+  """Updated at date"""
+  updatedAt: DateTime!
+
+  """ Deleted at date"""
+  deletedAt: DateTime
+
+  """first name of author"""
+  firstName: String!
+
+  """last name of author"""
+  lastName: String!
+
+  """Books written by author"""
+  books: [BookEntity!]
+}
+
 type Query {
+  authors: [AuthorEntity!]!
+  author(id: String!): AuthorEntity
   users: [UserEntity!]!
   user(id: String!): UserEntity
   whoAmI: UserEntity
