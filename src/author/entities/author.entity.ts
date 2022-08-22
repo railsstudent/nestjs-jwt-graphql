@@ -14,7 +14,7 @@ export class AuthorEntity extends AbstractEntity {
   @Field(() => String, { description: 'last name of author' })
   lastName: string;
 
-  @ManyToMany(() => BookEntity)
+  @ManyToMany(() => BookEntity, (book) => book.authors)
   @JoinTable()
   @Field(() => [BookEntity], { description: 'Books written by author', nullable: true })
   books?: BookEntity[];

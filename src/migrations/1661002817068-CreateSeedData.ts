@@ -53,13 +53,16 @@ export class CreateSeedData1661002817068 implements MigrationInterface {
     const authorBookSql = 'INSERT INTO "author_books_book"("authorId", "bookId") values($1, $2);';
     await queryRunner.query(authorBookSql, [authorIds[0], bookIds[0]]);
     await queryRunner.query(authorBookSql, [authorIds[0], bookIds[1]]);
+    await queryRunner.query(authorBookSql, [authorIds[0], bookIds[2]]);
     await queryRunner.query(authorBookSql, [authorIds[1], bookIds[2]]);
+    await queryRunner.query(authorBookSql, [authorIds[0], bookIds[3]]);
     await queryRunner.query(authorBookSql, [authorIds[1], bookIds[3]]);
     await queryRunner.query(authorBookSql, [authorIds[1], bookIds[4]]);
     await queryRunner.query(authorBookSql, [authorIds[1], bookIds[5]]);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query('DELETE FROM "author_books_book"');
     await queryRunner.query('DELETE FROM "book"');
     await queryRunner.query('DELETE FROM "author"');
     await queryRunner.query('DELETE FROM "user"');

@@ -87,7 +87,7 @@ type AuthorEntity {
   """last name of author"""
   lastName: String!
 
-  """Books written by author"""
+  """Books written by the author"""
   books: [BookEntity!]
 }
 
