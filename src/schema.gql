@@ -65,6 +65,9 @@ type BookEntity {
 
   """All authors of the book"""
   authors: [AuthorEntity!]!
+
+  """Number of authors"""
+  numOfAuthors: Int!
 }
 
 """Author Model"""
@@ -94,6 +97,9 @@ type AuthorEntity {
 type Query {
   authors: [AuthorEntity!]!
   author(id: String!): AuthorEntity
+  books: [BookEntity!]!
+  book(id: String!): BookEntity
+  numOfBooks: Int!
   users: [UserEntity!]!
   user(id: String!): UserEntity
   whoAmI: UserEntity

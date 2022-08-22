@@ -15,6 +15,18 @@ export class BookService {
   }
 
   findOne(id: string): Promise<BookEntity | null> {
-    return this.bookRepository.findBookWithAuthors(id);
+    return this.bookRepository.findOneBy({ id });
   }
+
+  getNumberOfBooks(): Promise<number> {
+    return this.bookRepository.count();
+  }
+
+  getNumberOfAuthors(bookId: string): Promise<number> {
+    return this.bookRepository.getNumberOfAuthors(bookId);
+  }
+
+  // getAuthors(bookId: string): Promise<number> {
+  //   return this.bookRepository.count();
+  // }
 }

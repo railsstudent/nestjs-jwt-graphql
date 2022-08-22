@@ -23,4 +23,23 @@ export class BookRepository extends Repository<BookEntity> {
       },
     });
   }
+
+  async getNumberOfAuthors(bookId: string): Promise<number> {
+    const book = await this.findOne({
+      where: {
+        id: bookId,
+      },
+      relations: {
+        authors: true,
+      },
+      select: {
+        id: true,
+        authors: {
+          id: true,
+        },
+      },
+    });
+
+    return book?.authors?.length || 0;
+  }
 }
