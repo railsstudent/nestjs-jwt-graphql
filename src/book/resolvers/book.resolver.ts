@@ -1,12 +1,18 @@
+import { forwardRef, Inject } from '@nestjs/common';
 import { Args, Int, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { GqlAuthenticated } from '@/gql-auth';
 import { BookEntity } from '../entities';
 import { BookService } from '../services';
+import { AuthorService } from '@/author';
 
 @GqlAuthenticated()
 @Resolver(() => BookEntity)
 export class BookResolver {
-  constructor(private readonly bookService: BookService) {}
+  constructor(
+    private readonly bookService: BookService,
+    @Inject(forwardRef(() => AuthorService))
+    private readonly authorService: AuthorService,
+  ) {}
 
   @Query(() => [BookEntity], { name: 'books' })
   findAll(): Promise<BookEntity[]> {
@@ -25,7 +31,7 @@ export class BookResolver {
 
   @ResolveField(() => Int, { description: 'Number of authors', defaultValue: 0, name: 'numOfAuthors' })
   getNumberOfAuthors(@Parent() book: BookEntity): Promise<number> {
-    return this.bookService.getNumberOfAuthors(book.id);
+    return this.authorService.getNumberOfAuthors(book.id);
   }
   // @ResolveField(() => Int, { description: 'List of authors', name: 'authors' })
   // getAuthors(@Parent() book: BookEntity): Promise<number> {

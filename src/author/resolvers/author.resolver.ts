@@ -1,3 +1,4 @@
+import { forwardRef, Inject } from '@nestjs/common';
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { GqlAuthenticated } from '@/gql-auth';
 import { AuthorEntity } from '../entities';
@@ -7,7 +8,10 @@ import { BookEntity, BookService } from '@/book';
 @GqlAuthenticated()
 @Resolver(() => AuthorEntity)
 export class AuthorResolver {
-  constructor(private readonly authorService: AuthorService, private bookService: BookService) {}
+  constructor(
+    private readonly authorService: AuthorService,
+    @Inject(forwardRef(() => BookService)) private bookService: BookService,
+  ) {}
 
   @Query(() => [AuthorEntity], { name: 'authors' })
   findAll(): Promise<AuthorEntity[]> {
