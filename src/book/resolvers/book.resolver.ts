@@ -3,7 +3,7 @@ import { Args, Int, Parent, Query, ResolveField, Resolver } from '@nestjs/graphq
 import { GqlAuthenticated } from '@/gql-auth';
 import { BookEntity } from '../entities';
 import { BookService } from '../services';
-import { AuthorService } from '@/author';
+import { AuthorEntity, AuthorService } from '@/author';
 
 @GqlAuthenticated()
 @Resolver(() => BookEntity)
@@ -33,8 +33,9 @@ export class BookResolver {
   getNumberOfAuthors(@Parent() book: BookEntity): Promise<number> {
     return this.authorService.getNumberOfAuthors(book.id);
   }
-  // @ResolveField(() => Int, { description: 'List of authors', name: 'authors' })
-  // getAuthors(@Parent() book: BookEntity): Promise<number> {
-  //   return this.bookService.getBooksByAuthorId(book.id);
-  // }
+
+  @ResolveField(() => [AuthorEntity], { description: 'List of authors', name: 'authors' })
+  getAuthors(@Parent() book: BookEntity): Promise<AuthorEntity[]> {
+    return this.authorService.getAuthorsByBookId(book.id);
+  }
 }

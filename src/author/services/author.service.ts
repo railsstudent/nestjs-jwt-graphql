@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { AuthorEntity } from '../entities';
 import { AuthorRepository } from '../repositories';
 
 @Injectable()
 export class AuthorService {
-  constructor(@InjectRepository(AuthorEntity) private authorRepository: AuthorRepository) {}
+  constructor(private authorRepository: AuthorRepository) {}
 
   findAll(): Promise<AuthorEntity[]> {
     return this.authorRepository.find();
@@ -19,5 +18,9 @@ export class AuthorService {
 
   getNumberOfAuthors(bookId: string): Promise<number> {
     return this.authorRepository.getNumberOfAuthors(bookId);
+  }
+
+  async getAuthorsByBookId(bookId: string): Promise<AuthorEntity[]> {
+    return this.authorRepository.getAuthorsByBookId(bookId);
   }
 }

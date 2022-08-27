@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { AbstractEntity } from '../../entities';
-import { BookEntity } from '../../book/entities/book.entity';
+import { BookEntity } from '@/book/entities';
 
 @Entity('author')
 @ObjectType({ description: 'Author Model' })

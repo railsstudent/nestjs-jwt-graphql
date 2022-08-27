@@ -63,7 +63,7 @@ type BookEntity {
   """Genre of literature"""
   genre: String!
 
-  """All authors of the book"""
+  """List of authors"""
   authors: [AuthorEntity!]!
 
   """Number of authors"""

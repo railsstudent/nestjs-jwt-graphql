@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, ManyToMany } from 'typeorm';
 import { AbstractEntity } from '../../entities';
-import { AuthorEntity } from '../../author/entities/author.entity';
+import { AuthorEntity } from '@/author/entities';
 import { GENRE } from '../enums';
 
 @Entity('book')

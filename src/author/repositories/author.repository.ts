@@ -17,4 +17,12 @@ export class AuthorRepository extends Repository<AuthorEntity> {
       },
     });
   }
+
+  async getAuthorsByBookId(bookId: string): Promise<AuthorEntity[]> {
+    return this.findBy({
+      books: {
+        id: bookId,
+      },
+    });
+  }
 }
