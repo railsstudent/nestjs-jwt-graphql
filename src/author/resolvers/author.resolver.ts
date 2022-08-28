@@ -1,9 +1,9 @@
 import { forwardRef, Inject } from '@nestjs/common';
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { GqlAuthenticated } from '@/gql-auth';
+import { BookEntity, BookService } from '@/book';
 import { AuthorEntity } from '../entities';
 import { AuthorService } from '../services';
-import { BookEntity, BookService } from '@/book';
 
 @GqlAuthenticated()
 @Resolver(() => AuthorEntity)

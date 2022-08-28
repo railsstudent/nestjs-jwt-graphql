@@ -1,7 +1,7 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
-import { UserService } from '../services/user.service';
-import { UserEntity } from '../entities/user.entity';
 import { GqlAuthenticated, GqlCurrentUser } from '@/gql-auth';
+import { UserService } from '../services';
+import { UserEntity } from '../entities';
 
 @GqlAuthenticated()
 @Resolver(() => UserEntity)

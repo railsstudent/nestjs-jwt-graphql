@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { AbstractEntity } from '../../entities';
+import { AbstractEntity } from '@/entities';
 
 @Entity('user')
 @ObjectType({ description: 'User Model' })
