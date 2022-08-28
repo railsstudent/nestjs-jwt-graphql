@@ -14,7 +14,7 @@ const source = new DataSource({
   database: configService.get<string>('DATABASE_NAME'),
   migrationsTableName: 'migrations',
   migrations: ['src/migrations/*.ts'],
-  entities: ['src/**/*.entity.ts'],
+  entities: ['**/*.entity.{ts.js}'],
   synchronize: false,
 });
 
